@@ -4,7 +4,8 @@ library(lterdatasampler)
 library(tidyverse)
 library(palmerpenguins)
 library(shinyWidgets)
-
+library(markdown) # for including tex markdown
+library(shinycssloaders)
 #............custom ggplot theme (apply to both plots)...........
 myCustomTheme <- function() {
   theme_light() +

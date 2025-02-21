@@ -8,7 +8,21 @@ ui <- navbarPage(
   # (Page 1) Intro tabpanel ----
   tabPanel(title = "About this app",
            
-           "Background info will go here"
+           # Intro text fluid row ----
+           fluidRow(
+             
+             # use columns to create white space on sides
+             column(1),
+             column(10, includeMarkdown("text/about.md")),
+             column(1)
+           
+             ), # END intro text fluid row 
+           
+           # add horizontal line 
+          hr(),
+          
+          # footer text ---
+          includeMarkdown("text/footer.md"),
            
            ), # END (Page 1) Intro tabpanel 
   
@@ -53,7 +67,8 @@ ui <- navbarPage(
                         mainPanel(
                           
                           # trout scatter plot output 
-                          plotOutput(outputId = "trout_scatterplot_output")
+                          plotOutput(outputId = "trout_scatterplot_output") |> 
+                            withSpinner(color = "lightblue", type = 4) # loading icon 
                           
                         ) # END trout mainPanel
                         
@@ -64,13 +79,13 @@ ui <- navbarPage(
                       ), # END trout tabPanel
              tabPanel(title = "Penguins",
                       
-                      # pneguin sidebarLayout --- 
+                      # penguin sidebarLayout --- 
                       sidebarLayout(
                         
                         # penguin sidebarPanel ----
                         
                         sidebarPanel(
-                          # island picker input 
+                          # island pickerInput ---- 
                           pickerInput(inputId = "island_picker",
                                       label = "Select an island(s)",
                                       choices = c(unique(penguins$island)),
@@ -78,9 +93,9 @@ ui <- navbarPage(
                                       multiple = TRUE,
                                       options = pickerOptions(actionsBox = TRUE)),
                           
-                          # bin width input 
+                          # bin width sliderInput ----  
                           sliderInput(inputId = "binwidth_slider",
-                                      label = "Select number of bins",
+                                      label = "Select number of bins:",
                                       min = 2, max = 50, 
                                       value = 25 )
                                       
@@ -90,7 +105,8 @@ ui <- navbarPage(
                         # penguin mainPanel ---- 
                         mainPanel(
                           
-                          plotOutput(outputId = "penguin_histogram_output")
+                          plotOutput(outputId = "penguin_histogram_output") |> 
+                            withSpinner(color = "lightblue", type = 6)
                           
                           
                         ) # END penguin mainPanel

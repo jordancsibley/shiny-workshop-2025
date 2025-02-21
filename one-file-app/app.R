@@ -3,9 +3,19 @@ library(shiny)
 library(tidyverse)
 library(palmerpenguins)
 library(DT)
+library(bslib)
 
 # Create user interface ----
 ui <- fluidPage(
+  
+  # Set theme ----
+  #theme = bs_theme(bootswatch = "solar") # how to select preset theme 
+  theme = bs_theme(
+    bg = "#A36F6F", # background color
+    fg = "#FDF7F7", # foreground color
+    primary = "#483132", # primary accent color
+    base_font = font_google("Pacifico")),
+  
   # App title ---- 
   tags$h1("My App Title"), # h1, level one header 
   

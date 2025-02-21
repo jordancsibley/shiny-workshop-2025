@@ -5,6 +5,14 @@ server <- function(input, output) {
 # Trout plot ----   
   # create reactive dataframe for trout plot ----
   trout_filtered_df <- reactive({
+    
+    # Write a validation test for user experience 
+    validate(
+      need(length(input$channel_type_input) > 0, "Please select at least one channel type to visualize data for."), # Need user to select at least one channel type or error
+      need(length(input$section_input) > 0, "Please select at least one section (clear cut or old growth forest).")
+    )
+    
+    
     clean_trout |> 
       filter(channel_type %in% c(input$channel_type_input)) |> 
       filter(section %in% c(input$section_input))
@@ -36,14 +44,25 @@ server <- function(input, output) {
            color = "Channel Type", 
            shape = "Channel Type") +
       myCustomTheme()
-  }) # END renderPlot
+  },
+  
+  alt = "This is my alt text"
+  
+  ) # END renderPlot
     
 # penguins ----
     # create reactive dataframe for penguin histogram 
-    island_df <- reactive(
+    island_df <- reactive({
+      
+      # Validation test 
+      validate(
+        need(length(input$island_picker) > 0, "Please select at least one island to visualize data for")
+      )
+      
+      
       penguins |> 
         filter(island %in% c(input$island_picker))
-    )
+    })
   
     # penguin histogram plot ----
     
